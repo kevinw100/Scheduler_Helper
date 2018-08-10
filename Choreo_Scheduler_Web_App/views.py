@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.mixins import CreateModelMixin, DestroyModelMixin
 from django.db.models import ObjectDoesNotExist, F
+from rest_framework.views import  APIView
 
 class DefaultsMixin(object):
     """Default settings for view authentication, permissions, filtering and pagination."""
@@ -63,7 +64,6 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class PairingsOverlapViewSet(viewsets.ViewSet):
     """API Endpoint for viewing Overlapping Pairing Availability"""
-
     @staticmethod
     # Used to check for equality of day of week and time of day
     def _create_dt_string(qs_entry):
@@ -85,9 +85,12 @@ class PairingsOverlapViewSet(viewsets.ViewSet):
         from_avails = Availability.objects.filter(owner=pairing.from_node.user)
         to_avails = Availability.objects.filter(owner=pairing.to_node.user)
         overlaps = PairingsOverlapViewSet._determine_overlaps(to_avails, from_avails)
-        print(overlaps)
         serializer = OverlapSerializer(data=overlaps, many=True)
         if serializer.is_valid():
             return Response(data=serializer.data)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class UsersAvailable(APIView):
+    def get(self, request, time_of_day, day_of_week):
+        User.objects.filter()
