@@ -93,4 +93,9 @@ class PairingsOverlapViewSet(viewsets.ViewSet):
 
 class UsersAvailable(APIView):
     def get(self, request, time_of_day, day_of_week):
-        User.objects.filter()
+        print("day of week: %s \n time_of_day: %s" % (day_of_week, time_of_day))
+        user_data = User.objects.filter(availability__time_of_day=time_of_day, availability__day_of_week=day_of_week)
+        print(user_data)
+        serializer = UserSerializer(user_data, many=True)
+        print(serializer.data)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
