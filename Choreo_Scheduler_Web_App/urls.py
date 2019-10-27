@@ -25,14 +25,18 @@ router.register(r'^availabilities_single', views.AvailabilitiesSingleUser, base_
 router.register(r'^availabilities_all', views.AvailabilitiesAllUsers)
 router.register(r'^pairings', views.PairingsViewSet, base_name='pairings')
 router.register(r'^users', views.UserViewSet, base_name='users')
-router.register(r'^leaders', views.LeaderPromotionsView)
+router.register(r'^leaders', views.LeaderPromotionsViewSet)
 router.register(r'^overlaps', views.PairingsOverlapViewSet, base_name="overlaps")
 
 urlpatterns = [
     url(r'^api/token/', obtain_auth_token, name='api-token'),
     url(r'^api/', include(router.urls)),
+    url(r'^logout/?', views.LogoutAPIView.as_view()),
+    url(r'^login/?', views.LoginAPIView.as_view()),
+    url(r'^register/?', views.RegistrationAPIView.as_view()),
+    url(r'api/schedule_encodings/?', views.ScheduleEncodings.as_view()),
     path('admin', admin.site.urls),
-    url(r'^api-auth/', include('rest_framework.urls')),
-    re_path('api/users_for_availability/(?P<time_of_day>[0-9]+:[0:9]+)/(?P<day_of_week>[1-7])/$',
+    url(r'^api-auth/', include('rest_auth.urls')),
+    re_path('api/users_for_availability/(?P<time_of_day>[0-9]+:[0-9]+)/(?P<day_of_week>[1-7])/$',
             views.UsersAvailable.as_view())
 ]

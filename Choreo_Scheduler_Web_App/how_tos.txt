@@ -1,0 +1,16 @@
+Turn off Tokenized requests:
+    This app has token authentication installed (HTTPS remains a todo). Any view that includes
+    this Mixin automatically gains this authentication. To submit a request,
+    => Alternatively, just use curl
+    try: curl -X 'http:/<your_domain_here>/api/<api endpoint>' -H 'Authorization: Token <your_token>'
+    You can get your token from the "Tokens DB" (see populate_db_scripts for the import)
+
+    Go into views.py and remove all DefaultsMixins from all views that extend it.
+
+Logging in:
+Need to specify your TOKEN in request header (instead of using CSRF tokens, use standard authtokens)
+curl --header "Content-Type: application/json" \
+  --header "Authorization: "
+  --request POST \
+  --data '{"username":"xyz","password":"xyz"}' \
+  http://localhost:3000/api/login

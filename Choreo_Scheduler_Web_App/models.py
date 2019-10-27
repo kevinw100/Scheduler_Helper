@@ -18,6 +18,7 @@ class LeaderProfile(models.Model):
         promotee = User.objects.get(first_name=first_name, last_name=last_name)
         return LeaderProfile(user=promotee)
 
+
 # Populated for every 30 minute interval
 class Availability(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)

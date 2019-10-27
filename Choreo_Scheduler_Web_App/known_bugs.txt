@@ -1,3 +1,6 @@
-No testing for < 1 Availability at API endpoint
 
-Need a way to make creating availabilities able to take on a batch of availabilities all at once
+No testing for < 1 Availability at API endpoint - Done
+
+Need a way to make creating availabilities able to take on a batch of availabilities all at once - Done
+
+Currently Users and Tokens are separate (completely). Find a way to link the two (primary key?) so that when you delete a user their token also gets deleted
